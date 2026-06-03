@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ílhavo School Grouping</title>
+
+  <style>
+    :root {
+      --primary-orange: #cc4400;
+      --ujet-green: #20c19e;
+      --dark-grey: #333;
+      --light-grey: #f4f4f4;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--dark-grey);
+      background: white;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 5%;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo img { height: 60px; }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--dark-grey);
+      font-weight: 600;
+    }
+
+    /* HERO */
+    .hero-banner {
+      width: 100%;
+      height: 550px;
+      background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+      url('https://ageilhavo.pt/wp-content/uploads/2021/05/slider_1.jpg') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .hero-banner h1 {
+      font-size: 3rem;
+      text-align: center;
+      padding: 0 10%;
+    }
+
+    /* SECTIONS */
+    .section {
+      padding: 60px 5%;
+      background: var(--light-grey);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .card h3 {
+      color: var(--primary-orange);
+    }
+
+    footer {
+      background: #222;
+      color: white;
+      padding: 30px 5%;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    /* CHATBOT AUTH OVERLAY */
+    #ujet-auth-overlay {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      z-index: 10000;
+      background: #fff;
+      padding: 22px 20px 18px;
+      border-radius: 14px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.22);
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      width: 290px;
+    }
+
+    #ujet-auth-overlay p {
+      margin: 0;
+      font-weight: bold;
+      text-align: center;
+      color: var(--primary-orange);
+    }
+
+    #ujet-auth-overlay input {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+
+    #ujet-auth-overlay button {
+      padding: 11px;
+      background: var(--ujet-green);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #ujet-widget {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    <img src="ageilhavo.png" alt="AgEI Logo">
+  </div>
+
+  <nav>
+    <ul>
+      <li><a href="https://ageilhavo.edu.pt" target="_blank" rel="noopener">School Grouping</a></li>
+      <li><a href="https://www.ageilhavo.pt/alunos/Inicial.wgx" target="_blank" rel="noopener">Students & Parents</a></li>
+      <li><a href="#">Schools</a></li>
+      <li><a href="#">Contacts</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero-banner">
+  <h1>AgEI — Together we build the future!</h1>
+</section>
+
+<section class="section">
+  <div class="cards">
+
+    <div class="card">
+      <h3>Students</h3>
+      <p>Access to information, schedules, and school services.</p>
+    </div>
+
+    <div class="card">
+      <h3>Parents & Guardians</h3>
+      <p>Direct communication with the school grouping.</p>
+    </div>
+
+    <div class="card">
+      <h3>Projects</h3>
+      <p>Educational activities and initiatives within the grouping.</p>
+    </div>
+
+  </div>
+</section>
+
+<div id="ujet-auth-overlay">
+  <p>Guardian Identification</p>
+  <input type="text" id="nome_ee" placeholder="Full Name">
+  <input type="email" id="email_ee" placeholder="Registered Email">
+  <button id="btn-conectar" onclick="submeterIdentificacao()">Contact the School Grouping</button>
+</div>
+
+<div id="ujet-widget"></div>
+
+<script>
+  var resolveAuth = null;
+
+  (function() {
+    var s = document.createElement('script');
+    s.src = 'https://sb-ageilhavo.ujet.co/web-sdk/v3/widget.js';
+    s.async = true;
+    s.onload = function() { iniciarUJET(); };
+    document.head.appendChild(s);
+  })();
+
+  function iniciarUJET() {
+    var chat = new UJET({
+      companyId: '17636951316581595ab2d48b05f1922a',
+      host: 'https://sb-ageilhavo.ujet.co',
+      lang: 'en',
+      queue: 'Digital Kits',
+      authenticate: function() {
+        return new Promise(function(resolve) {
+          resolveAuth = resolve;
+          mostrarFormulario();
+        });
+      }
+    });
+
+    chat.mount('#ujet-widget');
+  }
+
+  function mostrarFormulario() {
+    document.getElementById('ujet-auth-overlay').style.display = 'flex';
+  }
+
+  function submeterIdentificacao() {
+    var nomeVal = document.getElementById('nome_ee').value.trim();
+    var emailVal = document.getElementById('email_ee').value.trim();
+
+    if (!nomeVal || !emailVal) {
+      alert('Please fill in all fields.');
+      return;
+    }
+
+    // Alterado do caminho local do XAMPP para a rota da API servida pelo ecossistema do repositório público
+    fetch('/api/token', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ nome: nomeVal, email: emailVal })
+    })
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById('ujet-auth-overlay').style.display = 'none';
+      if (resolveAuth) resolveAuth(data);
+    })
+    .catch(() => alert('Server error'));
+  }
+</script>
+
+<footer>
+  © 2026 Ílhavo School Grouping
+</footer>
+
+</body>
+</html>
