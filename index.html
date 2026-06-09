@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agrupamento de Escolas de Ílhavo</title>
+  <title>Ílhavo School Grouping</title>
 
   <style>
     :root {
@@ -88,11 +88,11 @@
       transform: translateY(-2px);
     }
 
-    /* HERO BANNER (Configurado para mostrar a imagem panorâmica sem cortes) */
+    /* HERO BANNER */
     .hero-banner {
       width: 100%;
       height: auto;
-      aspect-ratio: 16 / 7; /* Mantém a proporção exata da imagem panorâmica */
+      aspect-ratio: 16 / 7;
       background: linear-gradient(rgba(30, 41, 59, 0.3), rgba(30, 41, 59, 0.45)),
                   url('banner_agei.png') center center/contain no-repeat;
       display: flex;
@@ -205,7 +205,7 @@
 
     #ujet-auth-overlay button {
       padding: 12px;
-      background: var(--primary-orange);
+      background: var(--ujet-green); /* Mantém o padrão visual verde do chatbot */
       color: white;
       border: none;
       border-radius: 8px;
@@ -216,7 +216,7 @@
     }
 
     #ujet-auth-overlay button:hover {
-      background: #d94f14;
+      background: #199e82;
     }
 
     #ujet-widget {
@@ -236,11 +236,11 @@
       border-top: 4px solid var(--primary-orange);
     }
 
-    /* RESPONSIVIDADE */
+    /* RESPONSIVENESS */
     @media (max-width: 768px) {
       header { flex-direction: column; gap: 15px; padding: 20px; }
       nav { flex-direction: column; gap: 15px; }
-      .hero-banner { aspect-ratio: 16 / 9; } /* Ajuste fino para ecrãs móveis */
+      .hero-banner { aspect-ratio: 16 / 9; }
       .hero-banner h1 { font-size: 2.2rem; }
       .section { padding: 50px 5%; }
     }
@@ -251,49 +251,49 @@
 
 <header>
   <div class="logo">
-    <img src="logo_agei.png" alt="AgEÍ Logo">
+    <img src="logo_agei.png" alt="AgEI Logo">
   </div>
 
   <nav>
     <ul>
-      <li><a href="https://ageilhavo.edu.pt" target="_blank" rel="noopener">Agrupamento</a></li>
-      <li><a href="https://maps.google.com/?q=Agrupamento+de+Escolas+de+Ílhavo" target="_blank" rel="noopener">Escola</a></li>
+      <li><a href="https://ageilhavo.edu.pt" target="_blank" rel="noopener">School Grouping</a></li>
+      <li><a href="https://www.ageilhavo.pt/alunos/Inicial.wgx" target="_blank" rel="noopener">Students & Parents</a></li>
     </ul>
-    <a href="#" class="btn-contact">Contactos</a>
+    <a href="#" class="btn-contact">Contacts</a>
   </nav>
 </header>
 
 <section class="hero-banner">
-  <h1>AgEI — Juntos construímos o futuro!</h1>
-  <p>Bem-vindo ao portal oficial do Agrupamento de Escolas de Ílhavo.</p>
+  <h1>AgEI — Together we build the future!</h1>
+  <p>Welcome to the official portal of the Ílhavo School Grouping.</p>
 </section>
 
 <section class="section">
   <div class="cards">
 
     <div class="card">
-      <h3>Alunos</h3>
-      <p>Acesso rápido a horários, plataformas educativas e serviços escolares essenciais para o teu percurso.</p>
+      <h3>Students</h3>
+      <p>Quick access to schedules, educational platforms, and essential school services for your academic journey.</p>
     </div>
 
     <div class="card">
-      <h3>Encarregados de Educação</h3>
-      <p>Espaço dedicado à comunicação direta, consulta de informações e acompanhamento do ano letivo.</p>
+      <h3>Parents & Guardians</h3>
+      <p>Dedicated space for direct communication, information queries, and school year monitoring.</p>
     </div>
 
     <div class="card">
-      <h3>Projetos e Atividades</h3>
-      <p>Fique por dentro das iniciativas, clubes escolares e projetos dinâmicos desenvolvidos pelo nosso agrupamento.</p>
+      <h3>Projects & Activities</h3>
+      <p>Stay updated with the initiatives, school clubs, and dynamic projects developed by our school grouping.</p>
     </div>
 
   </div>
 </section>
 
 <div id="ujet-auth-overlay">
-  <p>Identificação do EE</p>
-  <input type="text" id="nome_ee" placeholder="Nome Completo">
-  <input type="email" id="email_ee" placeholder="E-mail Registado">
-  <button id="btn-conectar" onclick="submeterIdentificacao()">Contactar o Agrupamento</button>
+  <p>Guardian Identification</p>
+  <input type="text" id="nome_ee" placeholder="Full Name">
+  <input type="email" id="email_ee" placeholder="Registered Email">
+  <button id="btn-conectar" onclick="submeterIdentificacao()">Contact the School Grouping</button>
 </div>
 
 <div id="ujet-widget"></div>
@@ -313,7 +313,7 @@
     var chat = new UJET({
       companyId: '17636951316581595ab2d48b05f1922a',
       host: 'https://sb-ageilhavo.ujet.co',
-      lang: 'pt',
+      lang: 'en', // Configurado para inglês conforme index(1).html
       queue: 'Digital Kits',
       authenticate: function() {
         return new Promise(function(resolve) {
@@ -335,10 +335,11 @@
     var emailVal = document.getElementById('email_ee').value.trim();
 
     if (!nomeVal || !emailVal) {
-      alert('Por favor, preencha todos os campos.');
+      alert('Please fill in all fields.');
       return;
     }
 
+    // Mantém a rota da API servida pelo ecossistema do repositório público
     fetch('/api/token', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -349,12 +350,12 @@
       document.getElementById('ujet-auth-overlay').style.display = 'none';
       if (resolveAuth) resolveAuth(data);
     })
-    .catch(() => alert('Erro no servidor local'));
+    .catch(() => alert('Server error'));
   }
 </script>
 
 <footer>
-  © 2026 Agrupamento de Escolas de Ílhavo. Todos os direitos reservados.
+  © 2026 Ílhavo School Grouping. All rights reserved.
 </footer>
 
 </body>
