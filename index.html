@@ -1,149 +1,249 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ílhavo School Grouping</title>
+  <title>Agrupamento de Escolas de Ílhavo</title>
 
   <style>
     :root {
-      --primary-orange: #cc4400;
+      --primary-orange: #f26522;
+      --primary-dark: #1e293b;
       --ujet-green: #20c19e;
-      --dark-grey: #333;
-      --light-grey: #f4f4f4;
+      --bg-light: #f8fafc;
+      --text-main: #334155;
+      --text-muted: #64748b;
+      --radius: 12px;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body, html {
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: var(--dark-grey);
-      background: white;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: var(--text-main);
+      background: var(--bg-light);
+      scroll-behavior: smooth;
     }
 
+    /* HEADER */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 5%;
-      background: white;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      padding: 15px 8%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
       position: sticky;
       top: 0;
       z-index: 1000;
     }
 
-    .logo img { height: 60px; }
+    .logo img { 
+      height: 65px; 
+      object-fit: contain;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
 
     nav ul {
       list-style: none;
       display: flex;
-      gap: 25px;
+      gap: 30px;
       margin: 0;
       padding: 0;
     }
 
     nav a {
       text-decoration: none;
-      color: var(--dark-grey);
+      color: var(--primary-dark);
       font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition);
     }
 
-    /* HERO */
+    nav a:hover {
+      color: var(--primary-orange);
+    }
+
+    .btn-contact {
+      background: var(--primary-orange);
+      color: white !important;
+      padding: 10px 20px;
+      border-radius: 30px;
+      transition: var(--transition);
+    }
+
+    .btn-contact:hover {
+      background: #d94f14;
+      transform: translateY(-2px);
+    }
+
+    /* HERO BANNER (Configurado para mostrar a imagem panorâmica sem cortes) */
     .hero-banner {
       width: 100%;
-      height: 550px;
-      background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-      url('https://ageilhavo.pt/wp-content/uploads/2021/05/slider_1.jpg') center/cover no-repeat;
+      height: auto;
+      aspect-ratio: 16 / 7; /* Mantém a proporção exata da imagem panorâmica */
+      background: linear-gradient(rgba(30, 41, 59, 0.3), rgba(30, 41, 59, 0.45)),
+                  url('banner_agei.png') center center/contain no-repeat;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       color: white;
+      text-align: center;
+      padding: 0 20px;
     }
 
     .hero-banner h1 {
-      font-size: 3rem;
-      text-align: center;
-      padding: 0 10%;
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 15px;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      max-width: 800px;
     }
 
-    /* SECTIONS */
+    .hero-banner p {
+      font-size: 1.25rem;
+      max-width: 600px;
+      margin: 0;
+      opacity: 0.95;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    }
+
+    /* SECTIONS & CARDS */
     .section {
-      padding: 60px 5%;
-      background: var(--light-grey);
+      padding: 80px 8%;
     }
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
     }
 
     .card {
       background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      padding: 35px 30px;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+      border-top: 4px solid var(--primary-orange);
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.06);
     }
 
     .card h3 {
-      color: var(--primary-orange);
+      color: var(--primary-dark);
+      font-size: 1.4rem;
+      margin-top: 0;
+      margin-bottom: 15px;
     }
 
-    footer {
-      background: #222;
-      color: white;
-      padding: 30px 5%;
-      text-align: center;
-      font-size: 14px;
+    .card p {
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
     }
 
     /* CHATBOT AUTH OVERLAY */
     #ujet-auth-overlay {
       position: fixed;
-      bottom: 90px;
-      right: 20px;
+      bottom: 95px;
+      right: 25px;
       z-index: 10000;
-      background: #fff;
-      padding: 22px 20px 18px;
-      border-radius: 14px;
-      box-shadow: 0 8px 28px rgba(0,0,0,0.22);
+      background: white;
+      padding: 25px;
+      border-radius: var(--radius);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
       display: none;
       flex-direction: column;
-      gap: 12px;
-      width: 290px;
+      gap: 15px;
+      width: 320px;
+      border: 1px solid rgba(0,0,0,0.05);
+      animation: slideUp 0.4s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     #ujet-auth-overlay p {
-      margin: 0;
-      font-weight: bold;
+      margin: 0 0 5px;
+      font-weight: 700;
+      font-size: 1.1rem;
       text-align: center;
-      color: var(--primary-orange);
+      color: var(--primary-dark);
     }
 
     #ujet-auth-overlay input {
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 6px;
+      padding: 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    #ujet-auth-overlay input:focus {
+      border-color: var(--primary-orange);
+      box-shadow: 0 0 0 3px rgba(242, 101, 34, 0.15);
     }
 
     #ujet-auth-overlay button {
-      padding: 11px;
-      background: var(--ujet-green);
+      padding: 12px;
+      background: var(--primary-orange);
       color: white;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
-      font-weight: bold;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+
+    #ujet-auth-overlay button:hover {
+      background: #d94f14;
     }
 
     #ujet-widget {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 25px;
+      right: 25px;
       z-index: 9999;
     }
 
+    /* FOOTER */
+    footer {
+      background: var(--primary-dark);
+      color: #94a3b8;
+      padding: 40px 8%;
+      text-align: center;
+      font-size: 0.9rem;
+      border-top: 4px solid var(--primary-orange);
+    }
+
+    /* RESPONSIVIDADE */
+    @media (max-width: 768px) {
+      header { flex-direction: column; gap: 15px; padding: 20px; }
+      nav { flex-direction: column; gap: 15px; }
+      .hero-banner { aspect-ratio: 16 / 9; } /* Ajuste fino para ecrãs móveis */
+      .hero-banner h1 { font-size: 2.2rem; }
+      .section { padding: 50px 5%; }
+    }
   </style>
 </head>
 
@@ -151,49 +251,49 @@
 
 <header>
   <div class="logo">
-    <img src="ageilhavo.png" alt="AgEI Logo">
+    <img src="logo_agei.png" alt="AgEÍ Logo">
   </div>
 
   <nav>
     <ul>
-      <li><a href="https://ageilhavo.edu.pt" target="_blank" rel="noopener">School Grouping</a></li>
-      <li><a href="https://www.ageilhavo.pt/alunos/Inicial.wgx" target="_blank" rel="noopener">Students & Parents</a></li>
-      <li><a href="#">Schools</a></li>
-      <li><a href="#">Contacts</a></li>
+      <li><a href="https://ageilhavo.edu.pt" target="_blank" rel="noopener">Agrupamento</a></li>
+      <li><a href="https://maps.google.com/?q=Agrupamento+de+Escolas+de+Ílhavo" target="_blank" rel="noopener">Escola</a></li>
     </ul>
+    <a href="#" class="btn-contact">Contactos</a>
   </nav>
 </header>
 
 <section class="hero-banner">
-  <h1>AgEI — Together we build the future!</h1>
+  <h1>AgEI — Juntos construímos o futuro!</h1>
+  <p>Bem-vindo ao portal oficial do Agrupamento de Escolas de Ílhavo.</p>
 </section>
 
 <section class="section">
   <div class="cards">
 
     <div class="card">
-      <h3>Students</h3>
-      <p>Access to information, schedules, and school services.</p>
+      <h3>Alunos</h3>
+      <p>Acesso rápido a horários, plataformas educativas e serviços escolares essenciais para o teu percurso.</p>
     </div>
 
     <div class="card">
-      <h3>Parents & Guardians</h3>
-      <p>Direct communication with the school grouping.</p>
+      <h3>Encarregados de Educação</h3>
+      <p>Espaço dedicado à comunicação direta, consulta de informações e acompanhamento do ano letivo.</p>
     </div>
 
     <div class="card">
-      <h3>Projects</h3>
-      <p>Educational activities and initiatives within the grouping.</p>
+      <h3>Projetos e Atividades</h3>
+      <p>Fique por dentro das iniciativas, clubes escolares e projetos dinâmicos desenvolvidos pelo nosso agrupamento.</p>
     </div>
 
   </div>
 </section>
 
 <div id="ujet-auth-overlay">
-  <p>Guardian Identification</p>
-  <input type="text" id="nome_ee" placeholder="Full Name">
-  <input type="email" id="email_ee" placeholder="Registered Email">
-  <button id="btn-conectar" onclick="submeterIdentificacao()">Contact the School Grouping</button>
+  <p>Identificação do EE</p>
+  <input type="text" id="nome_ee" placeholder="Nome Completo">
+  <input type="email" id="email_ee" placeholder="E-mail Registado">
+  <button id="btn-conectar" onclick="submeterIdentificacao()">Contactar o Agrupamento</button>
 </div>
 
 <div id="ujet-widget"></div>
@@ -213,7 +313,7 @@
     var chat = new UJET({
       companyId: '17636951316581595ab2d48b05f1922a',
       host: 'https://sb-ageilhavo.ujet.co',
-      lang: 'en',
+      lang: 'pt',
       queue: 'Digital Kits',
       authenticate: function() {
         return new Promise(function(resolve) {
@@ -235,11 +335,10 @@
     var emailVal = document.getElementById('email_ee').value.trim();
 
     if (!nomeVal || !emailVal) {
-      alert('Please fill in all fields.');
+      alert('Por favor, preencha todos os campos.');
       return;
     }
 
-    // Alterado do caminho local do XAMPP para a rota da API servida pelo ecossistema do repositório público
     fetch('/api/token', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -250,12 +349,12 @@
       document.getElementById('ujet-auth-overlay').style.display = 'none';
       if (resolveAuth) resolveAuth(data);
     })
-    .catch(() => alert('Server error'));
+    .catch(() => alert('Erro no servidor local'));
   }
 </script>
 
 <footer>
-  © 2026 Ílhavo School Grouping
+  © 2026 Agrupamento de Escolas de Ílhavo. Todos os direitos reservados.
 </footer>
 
 </body>
