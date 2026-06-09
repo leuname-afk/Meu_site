@@ -205,7 +205,7 @@
 
     #ujet-auth-overlay button {
       padding: 12px;
-      background: var(--ujet-green); /* Mantém o padrão visual verde do chatbot */
+      background: var(--ujet-green);
       color: white;
       border: none;
       border-radius: 8px;
@@ -257,7 +257,7 @@
   <nav>
     <ul>
       <li><a href="https://ageilhavo.edu.pt" target="_blank" rel="noopener">School Grouping</a></li>
-      <li><a href="https://www.ageilhavo.pt/alunos/Inicial.wgx" target="_blank" rel="noopener">Students & Parents</a></li>
+      <li><a href="https://maps.google.com/?q=Escola+Dr.+Jo%C3%A3o+Carlos+Celestino+Gomes" target="_blank" rel="noopener">School Maps</a></li>
     </ul>
     <a href="#" class="btn-contact">Contacts</a>
   </nav>
@@ -313,7 +313,7 @@
     var chat = new UJET({
       companyId: '17636951316581595ab2d48b05f1922a',
       host: 'https://sb-ageilhavo.ujet.co',
-      lang: 'en', // Configurado para inglês conforme index(1).html
+      lang: 'en',
       queue: 'Digital Kits',
       authenticate: function() {
         return new Promise(function(resolve) {
@@ -339,7 +339,6 @@
       return;
     }
 
-    // Mantém a rota da API servida pelo ecossistema do repositório público
     fetch('/api/token', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
